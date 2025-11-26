@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <section id="okn1">        
+        <img id="kart" src="kart1.jpg" >
+        <input id="slovo" type="text">
+        <button id="start"></button>
+    </section>
+
+    <section id="okn2">
+        <input id="vvod" type="text">
+        <div id="game"></div>
+    </section>
+
+    <section id="okn3">
+        <div id="end"></div>
+        <button id="main">новая игра</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> - html, для <section id="okn1"> сделай чтобы кнопка         <button id="start"></button> переходила на     <section id="okn2"> после написанного слова  в         <input id="slovo" type="text"> и сохраняло его, для
+    <section id="okn2"> сделай таблицу из кнопок русского алфавита  и чтобы при нажатии записывалось в         <input id="vvod" type="text">  и сравнивалось с буквами слова записаного в <section id="okn1">  если буква правильная то записывается в 
