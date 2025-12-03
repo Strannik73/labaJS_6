@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener("DOMContentLoaded", () => {
     const startBtn = document.getElementById("start");
     const slovoInput = document.getElementById("slovo");
@@ -11,11 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let mistakes = 0;
     const maxMistakes = 7; 
 
-    // картинки ошибок и стартовая
     const images = ["k.png", "k1.png", "k2.png", "k3.png", "k4.png", "k5.png", "k6.png", "k7.png"];
     const winImage = "kW.png";
 
-    // скрываем игровые окна
     document.getElementById("okn2").style.display = "none";
     document.getElementById("okn3").style.display = "none";
 
@@ -57,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (correct) {
             vvodInput.value = current.join("");
             if (vvodInput.value === word) {
-                // победа: ставим победную картинку и показываем экран результата
                 kartImg.src = winImage;
                 game(true);
             }
@@ -67,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 kartImg.src = images[mistakes];
             }
             if (mistakes >= maxMistakes) {
-                // поражение: перед переходом ставим последнюю картинку
                 kartImg.src = images[maxMistakes];
                 game(false);
             }
@@ -75,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function game(win) {
-        // на экране результата показываем соответствующую картинку
         const endImg = document.querySelector("#okn3 img");
         endImg.src = win ? winImage : images[maxMistakes];
 
