@@ -9,40 +9,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let word = "";
     let mistakes = 0;
-    const maxMistakes = 7; // теперь 7 картинок
+    const maxMistakes = 7; 
 
-    // Скрываем окна при старте
+    // картинки ошибок и стартовая
+    const images = ["k.png", "k1.png", "k2.png", "k3.png", "k4.png", "k5.png", "k6.png", "k7.png"];
+    const winImage = "kW.png";
+
+    // скрываем игровые окна
     document.getElementById("okn2").style.display = "none";
     document.getElementById("okn3").style.display = "none";
 
-    // Переход от окна 1 к окну 2
     startBtn.addEventListener("click", () => {
         word = slovoInput.value.trim().toUpperCase();
         if (word) {
             document.getElementById("okn1").style.display = "none";
             document.getElementById("okn2").style.display = "block";
             document.getElementById("okn3").style.display = "none";
-            createAlphabetButtons();
-            vvodInput.value = "_".repeat(word.length); // пустые места для слова
+            klava();
+            vvodInput.value = "_".repeat(word.length);
+            kartImg.src = images[0];
         }
     });
 
-    // Создание кнопок русского алфавита
-    function createAlphabetButtons() {
+    function klava() {
         const alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
         gameDiv.innerHTML = "";
         for (let letter of alphabet) {
             const btn = document.createElement("button");
             btn.textContent = letter;
-            btn.addEventListener("click", () => handleGuess(letter, btn));
+            btn.addEventListener("click", () => kart(letter, btn));
             gameDiv.appendChild(btn);
         }
     }
 
-    // Проверка буквы
-    function handleGuess(letter, btn) {
+    function kart(letter, btn) {
         btn.disabled = true;
-        let current = vvodInput.value.split("");
+        const current = vvodInput.value.split("");
         let correct = false;
 
         for (let i = 0; i < word.length; i++) {
@@ -55,19 +57,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (correct) {
             vvodInput.value = current.join("");
             if (vvodInput.value === word) {
-                endGame(true);
+                // победа: ставим победную картинку и показываем экран результата
+                kartImg.src = winImage;
+                game(true);
             }
         } else {
             mistakes++;
-            kartImg.src = `kart${mistakes + 1}.jpg`; // картинка меняется
+            if (mistakes < maxMistakes) {
+                kartImg.src = images[mistakes];
+            }
             if (mistakes >= maxMistakes) {
-                endGame(false);
+                // поражение: перед переходом ставим последнюю картинку
+                kartImg.src = images[maxMistakes];
+                game(false);
             }
         }
     }
 
-    // Конец игры
-    function endGame(win) {
+    function game(win) {
+        // на экране результата показываем соответствующую картинку
+        const endImg = document.querySelector("#okn3 img");
+        endImg.src = win ? winImage : images[maxMistakes];
+
         document.getElementById("okn2").style.display = "none";
         document.getElementById("okn3").style.display = "block";
         document.getElementById("end").textContent = win
@@ -75,10 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
             : "Игра проиграна!";
     }
 
-    // Новая игра
     mainBtn.addEventListener("click", () => {
         mistakes = 0;
-        kartImg.src = "kart1.jpg";
+        kartImg.src = images[0];
         slovoInput.value = "";
         vvodInput.value = "";
         document.getElementById("okn3").style.display = "none";
